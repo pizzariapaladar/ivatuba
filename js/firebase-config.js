@@ -1,4 +1,3 @@
-```javascript
 // Configuração do Firebase
 // IMPORTANTE: Substitua com suas credenciais do Firebase
 const firebaseConfig = {
