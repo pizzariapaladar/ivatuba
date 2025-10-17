@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzaria Paladar</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="logo-section">
+                    <i class="fas fa-pizza-slice logo-icon"></i>
+                    <h1>Pizzaria Paladar</h1>
+                    <p>Bem-vindo de volta!</p>
+                </div>
+
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="login">Entrar</button>
+                    <button class="tab-btn" data-tab="register">Cadastrar</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="loginPassword" placeholder="Senha" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <span>Entrar</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="registerName" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="registerEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="registerPassword" placeholder="Senha (mín. 6 caracteres)" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <span>Cadastrar</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+
+                <button id="googleSignIn" class="btn-google">
+                    <i class="fab fa-google"></i>
+                    <span>Continuar com Google</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela Principal -->
+    <div id="mainScreen" class="screen">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <i class="fas fa-pizza-slice"></i>
+                    <span>Paladar</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-link active" data-section="home">
+                        <i class="fas fa-home"></i>
+                        <span>Início</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="menu">
+                        <i class="fas fa-utensils"></i>
+                        <span>Cardápio</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="orders" id="ordersLink">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Pedidos</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="chat">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                        <span class="notification-badge" id="chatBadge">0</span>
+                    </a>
+                </div>
+                <div class="nav-user">
+                    <div class="user-info">
+                        <img id="userAvatar" src="" alt="User">
+                        <span id="userName"></span>
+                    </div>
+                    <button id="logoutBtn" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Home Section -->
+        <section id="homeSection" class="content-section active">
+            <div class="hero-section">
+                <h1 class="hero-title">Bem-vindo à Pizzaria Paladar</h1>
+                <p class="hero-subtitle">As melhores pizzas da cidade!</p>
+                <button class="btn-hero" id="startOrderBtn">
+                    <i class="fas fa-shopping-cart"></i>
+                    Fazer Pedido
+                </button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Produtos serão carregados aqui -->
+            </div>
+
+            <!-- Admin Controls -->
+            <div id="adminControls" class="admin-panel" style="display: none;">
+                <h2>Painel Administrativo</h2>
+                <button class="btn-admin" id="addProductBtn">
+                    <i class="fas fa-plus"></i>
+                    Adicionar Produto
+                </button>
+                <button class="btn-admin" id="manageEmployeesBtn">
+                    <i class="fas fa-users"></i>
+                    Gerenciar Funcionários
+                </button>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menuSection" class="content-section">
+            <div class="menu-container">
+                <h2>Cardápio Completo</h2>
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="all">Todos</button>
+                    <button class="category-btn" data-category="pizza">Pizzas</button>
+                    <button class="category-btn" data-category="torre">Torre de Batata</button>
+                    <button class="category-btn" data-category="frango">Frango</button>
+                    <button class="category-btn" data-category="peixe">Peixe</button>
+                    <button class="category-btn" data-category="bebidas">Bebidas</button>
+                </div>
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Produtos do cardápio -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Section (Admin/Employee) -->
+        <section id="ordersSection" class="content-section">
+            <div class="orders-container">
+                <h2>Gerenciar Pedidos</h2>
+                <div class="orders-tabs">
+                    <button class="orders-tab active" data-tab="online">Pedidos Online</button>
+                    <button class="orders-tab" data-tab="local">Pedidos Locais</button>
+                </div>
+                <div id="ordersContent" class="orders-content">
+                    <!-- Pedidos serão carregados aqui -->
+                </div>
+                <button class="btn-floating" id="newLocalOrderBtn">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Chat Section -->
+        <section id="chatSection" class="content-section">
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <div class="chat-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Buscar conversas...">
+                    </div>
+                    <div class="chat-list" id="chatList">
+                        <!-- Lista de conversas -->
+                    </div>
+                </div>
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <div class="chat-user-info">
+                            <img src="" alt="User" id="chatUserAvatar">
+                            <div>
+                                <h3 id="chatUserName">Selecione uma conversa</h3>
+                                <span id="chatUserStatus">offline</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Mensagens -->
+                    </div>
+                    <div class="chat-input">
+                        <button class="btn-icon" id="attachMenuBtn">
+                            <i class="fas fa-utensils"></i>
+                        </button>
+                        <input type="text" id="messageInput" placeholder="Digite uma mensagem...">
+                        <button class="btn-icon" id="sendMessageBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal Add/Edit Product -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Adicionar Produto</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="productForm">
+                <div class="form-group">
+                    <label>Nome do Produto</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <select id="productCategory" required>
+                        <option value="pizza">Pizza</option>
+                        <option value="torre">Torre de Batata</option>
+                        <option value="frango">Frango</option>
+                        <option value="peixe">Peixe</option>
+                        <option value="bebidas">Bebidas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preço (R$)</label>
+                    <input type="number" id="productPrice" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>URL da Imagem</label>
+                    <input type="url" id="productImage" required>
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="productDescription" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-close">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Menu Selection -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Selecionar Produtos</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="menu-selection-container">
+                <div class="menu-selection-sidebar">
+                    <div class="cart-summary">
+                        <h3>Carrinho</h3>
+                        <div id="cartItems"></div>
+                        <div class="cart-total">
+                            <span>Total:</span>
+                            <strong id="cartTotal">R$ 0,00</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-selection-main">
+                    <div class="menu-categories">
+                        <button class="category-btn active" data-category="all">Todos</button>
+                        <button class="category-btn" data-category="pizza">Pizzas</button>
+                        <button class="category-btn" data-category="torre">Torre de Batata</button>
+                        <button class="category-btn" data-category="frango">Frango</button>
+                        <button class="category-btn" data-category="peixe">Peixe</button>
+                        <button class="category-btn" data-category="bebidas">Bebidas</button>
+                    </div>
+                    <div class="menu-selection-grid" id="menuSelectionGrid">
+                        <!-- Produtos para seleção -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary modal-close">Cancelar</button>
+                <button type="button" class="btn-primary" id="sendCartBtn">Enviar Pedido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Local Order -->
+    <div id="localOrderModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Novo Pedido Local</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="localOrderForm">
+                <div class="form-group">
+                    <label>Nome do Cliente</label>
+                    <input type="text" id="localCustomerName" required>
+                </div>
+                <div class="menu-selection-container">
+                    <div class="menu-selection-sidebar">
+                        <div class="cart-summary">
+                            <h3>Pedido</h3>
+                            <div id="localCartItems"></div>
+                            <div class="cart-total">
+                                <span>Total:</span>
+                                <strong id="localCartTotal">R$ 0,00</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-selection-main">
+                        <div class="menu-categories">
+                            <button class="category-btn active" data-category="all">Todos</button>
+                            <button class="category-btn" data-category="pizza">Pizzas</button>
+                            <button class="category-btn" data-category="torre">Torre de Batata</button>
+                            <button class="category-btn" data-category="frango">Frango</button>
+                            <button class="category-btn" data-category="peixe">Peixe</button>
+                            <button class="category-btn" data-category="bebidas">Bebidas</button>
+                        </div>
+                        <div class="menu-selection-grid" id="localMenuGrid">
+                            <!-- Produtos para seleção -->
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-section">
+                    <h3>Forma de Pagamento</h3>
+                    <div class="payment-options">
+                        <label>
+                            <input type="radio" name="payment" value="cash" checked>
+                            <span>Dinheiro</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="card">
+                            <span>Cartão</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="pix">
+                            <span>PIX</span>
+                        </label>
+                    </div>
+                    <div id="cashCalculator" class="cash-calculator">
+                        <div class="form-group">
+                            <label>Valor Recebido (R$)</label>
+                            <input type="number" id="cashReceived" step="0.01" min="0">
+                        </div>
+                        <div class="change-display">
+                            <span>Troco:</span>
+                            <strong id="changeAmount">R$ 0,00</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-close">Cancelar</button>
+                    <button type="submit" class="btn-primary">Finalizar Pedido</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Manage Employees -->
+    <div id="employeesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Gerenciar Funcionários</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="employees-list" id="employeesList">
+                <!-- Lista de funcionários -->
+            </div>
+            <form id="addEmployeeForm">
+                <div class="form-group">
+                    <label>Email do Funcionário</label>
+                    <input type="email" id="employeeEmail" required>
+                </div>
+                <button type="submit" class="btn-primary">Adicionar Funcionário</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+                  </html>
